@@ -11,8 +11,12 @@ Package.onUse(function(api) {
 
 Package.onTest(function(api) {
   configurePackage(api);
-  api.use(['mongo-decimal', 'tinytest', 'accounts-password', 'random'],
-          ['server']);
+  api.use([
+    'mongo-decimal@0.1.1',
+    'tinytest',
+    'accounts-password',
+    'random'
+  ], ['server']);
 
   // common before
   api.addFiles(['test.js'], ['server']);
@@ -20,8 +24,12 @@ Package.onTest(function(api) {
 
 function configurePackage(api) {
   api.versionsFrom('METEOR@1');
-  api.use(['sakulstra:aggregate', 'mongo', 'mongo-decimal', 'underscore'],
-          ['server']);
+  api.use([
+    'sakulstra:aggregate@1.4.3',
+    'mongo',
+    'mongo-decimal@0.1.1',
+    'underscore'
+  ], ['server']);
 
   // common before
   api.addFiles(['index.js'], ['server']);
