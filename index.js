@@ -1,3 +1,6 @@
+import { EJSON } from 'meteor/ejson';
+
+
 var MongoDB = MongoInternals.NpmModules.mongodb.module;
 
 
@@ -39,10 +42,31 @@ var replaceMongoAtomWithMeteor = function (document) {
 };
 
 
+var replaceMeteorAtomWithMongo = function (document) {
+  if (EJSON.isBinary(document)) {
+    return new MongoDB.Binary(Buffer.from(document));
+  }
+  if (document instanceof Mongo.ObjectID) {
+    return new MongoDB.ObjectID(document.toHexString());
+  }
+  if (document instanceof Decimal) {
+    return MongoDB.Decimal128.fromString(document.toString());
+  }
+  return undefined;
+};
+
+
 Mongo.Collection.prototype.aggRetyped = function(pipelines, options) {
   var agg = Mongo.Collection.prototype.aggregate;
   var res = agg.bind(this)(pipelines, options);
   return _.map(res, function(doc){
     return replaceTypes(doc, replaceMongoAtomWithMeteor);
   });
+};
+
+
+export {
+  replaceTypes,
+  replaceMongoAtomWithMeteor,
+  replaceMeteorAtomWithMongo
 };
