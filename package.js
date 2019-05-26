@@ -29,7 +29,7 @@ function configurePackage(api) {
     'mongo',
     'mongo-decimal@0.1.1',
     'underscore',
-    'ecmascript'
+    'ecmascript@0.12.7'
   ], ['server']);
 
   // common before
