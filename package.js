@@ -1,6 +1,6 @@
 Package.describe({
   summary: 'Mongo.Collection aggRetyped aggregate method',
-  version: '0.0.2',
+  version: '0.0.3',
   git: 'https://github.com/zebra-lucky/meteor-aggregate-retyped',
   name: 'zebralucky:aggregate-retyped'
 });
@@ -12,7 +12,7 @@ Package.onUse(function(api) {
 Package.onTest(function(api) {
   configurePackage(api);
   api.use([
-    'mongo-decimal@0.1.1',
+    'mongo-decimal@0.1.0',
     'tinytest',
     'accounts-password',
     'random'
@@ -23,13 +23,13 @@ Package.onTest(function(api) {
 });
 
 function configurePackage(api) {
-  api.versionsFrom('METEOR@1');
+  api.versionsFrom('METEOR@1.7', 'METEOR@1.8');
   api.use([
     'sakulstra:aggregate@1.4.3',
     'mongo',
-    'mongo-decimal@0.1.1',
+    'mongo-decimal@0.1.0',
     'underscore',
-    'ecmascript@0.12.7'
+    'ecmascript'
   ], ['server']);
 
   // common before
