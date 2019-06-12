@@ -23,29 +23,54 @@ See `sakulstra:aggregate` package for more info.
 
 ## Manual retyping
 
+### Server
 ```js
 import {
   replaceTypes,
   replaceMeteorAtomWithMongo,
-  replaceMongoAtomWithMeteor
+  replaceMongoAtomWithMeteor,
+  replaceNumberWithDecimal,
+  replaceDecimalWithNumber
 } from 'meteor/zebralucky:aggregate-retyped';
 
 var meteorTypedDoc = ...
 var mongoTypedDoc = ...
 
-var mongoTyped = replaceTypes(meteorTypedDoc, replaceMeteorAtomWithMongo);
-var meteorTyped = replaceTypes(mongoTypedDoc, replaceMongoAtomWithMeteor);
+var resMongoTyped = replaceTypes(meteorTypedDoc, replaceMeteorAtomWithMongo);
+var resMeteorTyped = replaceTypes(mongoTypedDoc, replaceMongoAtomWithMeteor);
+
+var docWithNumbers = ...
+var docWithDecimals = ...
+
+var resWithDecimals = replaceTypes(docWithNumbers, replaceNumberWithDecimal);
+var resWithNumbers = replaceTypes(docWithDecimals , replaceDecimalWithNumber);
 ```
 
-## Types retyped
+### Client
+```js
+import {
+  replaceTypes,
+  replaceNumberWithDecimal,
+  replaceDecimalWithNumber
+} from 'meteor/zebralucky:aggregate-retyped';
 
-### MongoDB to Meteor
+var docWithNumbers = ...
+var docWithDecimals = ...
+
+var resWithDecimals = replaceTypes(docWithNumbers, replaceNumberWithDecimal);
+var resWithNumbers = replaceTypes(docWithDecimals , replaceDecimalWithNumber);
+
+```
+
+## Types retyped (Server code)
+
+### with `replaceMongoAtomWithMeteor`
 
 - `MongoDB.Binary` to `Uint8Array`
 - `MongoDB.ObjectID` to `Mongo.ObjectID`
 - `MongoDB.Decimal128` to `Decimal`
 
-### Meteor to MongoDB
+### with `replaceMeteorAtomWithMongo`
 
 - `Uint8Array` to `MongoDB.Binary`
 - `Mongo.ObjectID` to `MongoDB.ObjectID`
